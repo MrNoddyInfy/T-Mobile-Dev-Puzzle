@@ -43,44 +43,31 @@ A proxy has been set up in `stocks` to proxy calls to `locahost:3333` which is t
 Please provide a short code review of the base `master` branch:
 
 1. What is done well?
+	- Wide use of ngrx operators, easy transformation of data.
+	- State management
+	- Naming conventions followed
+	- Well formatted code
+	- New types defined in separate files
+	- Exports done from index file
+	
+
 2. What would you change?
+	- chart.component.html - update "data" to "chartData"
+	- Displaying API error on UI for better understanding
+	- price-query-transformer.util.ts - Removing extra elements from 2nd argument of pick function.
+	- chart.component.ts - remove unused imports
+    - Solving issues to run test cases,
+    - Formatting after changing code,
+	- Remove selectSymbol action implementation completely
+
+
 3. Are there any code smells or problematic implementations?
+	- chart.component.html - invalid property used i.e. data
+	- Google chart is not responsive
+	- Unused imports chart.component.ts
+    - Failed test cases for component files
+    - Reducer not added for the action PriceQueryFetchError,
+    - selectedSymbol$ property of PriceQueryFacadeis not used anywhere,
+    - selectSymbol action never dispatched
 
 > Make a PR to fix at least one of the issues that you identify
-
-### Task 2
-
-```
-Business requirement: As a user I should be able to type into
-the symbol field and make a valid time-frame selection so that
-the graph is refreshed automatically without needing to click a button.
-```
-
-_**Make a PR from the branch `feat_stock_typeahead` to `master` and provide a code review on this PR**_
-
-> Add comments to the PR. Focus on all items that you can see - this is a hypothetical example but let's treat it as a critical application. Then present these changes as another commit on the PR.
-
-### Task 3
-
-```
-Business requirement: As a user I want to choose custom dates
-so that I can view the trends within a specific period of time.
-```
-
-_**Implement this feature and make a PR from the branch `feat_custom_dates` to `master`.**_
-
-> Use the material date-picker component
-
-> We need two date-pickers: "from" and "to". The date-pickers should not allow selection of dates after the current day. "to" cannot be before "from" (selecting an invalid range should make both dates the same value)
-
-### Task 4
-
-```
-Technical requirement: the server `stocks-api` should be used as a proxy
-to make calls. Calls should be cached in memory to avoid querying for the
-same data. If a query is not in cache we should call-through to the API.
-```
-
-_**Implement the solution and make a PR from the branch `feat_proxy_server` to `master`**_
-
-> It is important to get the implementation working before trying to organize and clean it up.
