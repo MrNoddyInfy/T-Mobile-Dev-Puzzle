@@ -1,24 +1,27 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- **/
 import { Server } from 'hapi';
+import { Constants } from './app/app.constants'
+import { stockController } from './app/stock.controller';
+import { Routes } from './app/app.routes';
 
 const init = async () => {
   const server = new Server({
     port: 3333,
-    host: 'localhost'
-  });
-
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: (request, h) => {
-      return {
-        hello: 'world'
-      };
+    host: 'localhost',
+    routes: {
+      cors: {
+        origin: ['*']
+      }
     }
   });
+
+  // save server object to utilize in controller
+  Constants.SERVER = server;
+  
+  // initialize controller for caching settings
+  stockController.init();
+
+  // set routes of server
+  server.route(Routes);
 
   await server.start();
   console.log('Server running on %s', server.info.uri);
