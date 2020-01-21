@@ -11,7 +11,9 @@ export class StocksComponent implements OnInit {
   stockPickerForm: FormGroup;
   symbol: string;
   period: string;
+  error: string;
 
+  quotesError$ = this.priceQuery.priceQueryError$;
   quotes$ = this.priceQuery.priceQueries$;
 
   timePeriods = [
@@ -32,10 +34,15 @@ export class StocksComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.quotesError$.subscribe(error => {
+      this.error = error ? 'error: ' + error.error : null;
+    });
+  }
 
   fetchQuote() {
     if (this.stockPickerForm.valid) {
+      this.error = null;
       const { symbol, period } = this.stockPickerForm.value;
       this.priceQuery.fetchQuote(symbol, period);
     }

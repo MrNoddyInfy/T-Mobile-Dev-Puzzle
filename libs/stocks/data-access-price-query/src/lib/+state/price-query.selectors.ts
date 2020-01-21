@@ -9,9 +9,9 @@ const getPriceQueryState = createFeatureSelector<PriceQueryState>(
   PRICEQUERY_FEATURE_KEY
 );
 
-export const getSelectedSymbol = createSelector(
+export const getError = createSelector(
   getPriceQueryState,
-  (state: PriceQueryState) => state.selectedSymbol
+  (state: PriceQueryState) => state.error
 );
 
 const { selectAll } = priceQueryAdapter.getSelectors();
